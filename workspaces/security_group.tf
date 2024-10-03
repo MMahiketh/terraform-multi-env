@@ -1,5 +1,5 @@
 resource "aws_security_group" "expense" {
-  name        = "${var.sg_name}_${terraform.workspace}"
+  name        = lookup(var.sg_name, terraform.workspace)
   description = "Allow ssh port on all ip addresses for ${terraform.workspace}"
 
   egress {
@@ -18,6 +18,6 @@ resource "aws_security_group" "expense" {
   }
 
   tags = merge(
-    local.common_tags, { Name = "${var.sg_name}-${terraform.workspace}" }
+    local.common_tags, { Name = lookup(var.sg_name, terraform.workspace) }
   )
 }

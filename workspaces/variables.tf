@@ -1,6 +1,9 @@
 variable "sg_name" {
-  type    = string
-  default = "allow_ssh"
+  type    = map(any)
+  default = {
+    prod = "allow_ssh_prod"
+    dev = "allow_ssh_dev"
+  }
 }
 
 variable "ssh_port" {
@@ -9,10 +12,17 @@ variable "ssh_port" {
 }
 
 variable "servers" {
-  type = map(string)
+  type = map(any)
   default = {
-    "mysql"    = "t3.micro"
-    "backend"  = "t3.micro"
-    "frontend" = "t3.micro"
+    prod = {
+      "mysql-prod"    = "t3.micro"
+      "backend-prod"  = "t3.micro"
+      "frontend-prod" = "t3.micro"
+    }
+    dev = {
+      "mysql-dev"    = "t3.micro"
+      "backend-dev"  = "t3.micro"
+      "frontend-dev" = "t3.micro"
+    } 
   }
 }
